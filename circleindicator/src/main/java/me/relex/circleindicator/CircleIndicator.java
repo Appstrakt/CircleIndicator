@@ -136,11 +136,13 @@ public class CircleIndicator extends LinearLayout implements OnPageChangeListene
         }
 
         View selectedIndicator = getChildAt(position);
-        selectedIndicator.setAlpha(0.5f);
-        selectedIndicator.setBackgroundResource(mIndicatorBackground);
-        final Animator animatorIn = getAnimatorIn();
-        animatorIn.setTarget(selectedIndicator);
-        animatorIn.start();
+        if(selectedIndicator != null) {
+            selectedIndicator.setAlpha(0.5f);
+            selectedIndicator.setBackgroundResource(mIndicatorBackground);
+            final Animator animatorIn = getAnimatorIn();
+            animatorIn.setTarget(selectedIndicator);
+            animatorIn.start();
+        }
 
         mCurrentPosition = position;
     }
