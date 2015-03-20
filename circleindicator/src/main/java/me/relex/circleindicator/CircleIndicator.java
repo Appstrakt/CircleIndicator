@@ -116,7 +116,7 @@ public class CircleIndicator extends LinearLayout implements OnPageChangeListene
 
                 @Override
                 public void onAnimationEnd(Animator animation) {
-                    if (mIndicatorUnselectedBackground != 0) {
+                    if (mIndicatorUnselectedBackground != 0 && currentIndicator != null) {
                         currentIndicator.setBackgroundResource(mIndicatorUnselectedBackground);
                         currentIndicator.setAlpha(1.f);
                     }
