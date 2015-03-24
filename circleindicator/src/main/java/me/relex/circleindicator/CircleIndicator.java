@@ -94,7 +94,7 @@ public class CircleIndicator extends LinearLayout implements OnPageChangeListene
             int positionOffsetPixels) {
         if (mViewPagerOnPageChangeListener != null) {
             mViewPagerOnPageChangeListener.onPageScrolled(position, positionOffset,
-                    positionOffsetPixels);
+                positionOffsetPixels);
         }
     }
 
@@ -105,34 +105,35 @@ public class CircleIndicator extends LinearLayout implements OnPageChangeListene
 
         if(mCurrentPosition != position) {
             final View currentIndicator = getChildAt(mCurrentPosition);
+            if(currentIndicator != null) {
+                final Animator animatorOut = getAnimatorOut();
+                animatorOut.setTarget(currentIndicator);
+                animatorOut.addListener(new Animator.AnimatorListener() {
+                    @Override
+                    public void onAnimationStart(Animator animation) {
 
-            final Animator animatorOut = getAnimatorOut();
-            animatorOut.setTarget(currentIndicator);
-            animatorOut.addListener(new Animator.AnimatorListener() {
-                @Override
-                public void onAnimationStart(Animator animation) {
-
-                }
-
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    if (mIndicatorUnselectedBackground != 0 && currentIndicator != null) {
-                        currentIndicator.setBackgroundResource(mIndicatorUnselectedBackground);
-                        currentIndicator.setAlpha(1.f);
                     }
-                }
 
-                @Override
-                public void onAnimationCancel(Animator animation) {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        if (mIndicatorUnselectedBackground != 0) {
+                            currentIndicator.setBackgroundResource(mIndicatorUnselectedBackground);
+                            currentIndicator.setAlpha(1.f);
+                        }
+                    }
 
-                }
+                    @Override
+                    public void onAnimationCancel(Animator animation) {
 
-                @Override
-                public void onAnimationRepeat(Animator animation) {
+                    }
 
-                }
-            });
-            animatorOut.start();
+                    @Override
+                    public void onAnimationRepeat(Animator animation) {
+
+                    }
+                });
+                animatorOut.start();
+            }
         }
 
         View selectedIndicator = getChildAt(position);
